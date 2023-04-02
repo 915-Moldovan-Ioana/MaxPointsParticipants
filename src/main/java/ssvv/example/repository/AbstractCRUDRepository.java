@@ -32,10 +32,17 @@ public abstract class AbstractCRUDRepository<ID, E extends HasID<ID>> implements
     public E save(E entity) throws ValidationException {
         try {
             validator.validate(entity);
-            return entities.putIfAbsent(entity.getID(), entity);
+            if( entities.putIfAbsent(entity.getID(), entity) == null){
+                return entity;
+            }
+            return null;
         }
         catch (ValidationException ve) {
             System.out.println("Entitatea nu este valida! \n");
+            return null;
+        }
+        catch(Exception exception){
+            System.out.println("Entitatea nu este valida! Id-ul depaseste MAX_INT \n");
             return null;
         }
     }
@@ -58,6 +65,10 @@ public abstract class AbstractCRUDRepository<ID, E extends HasID<ID>> implements
         }
         catch (ValidationException ve) {
             System.out.println("Entitatea nu este valida! \n");
+            return null;
+        }
+        catch(Exception exception){
+            System.out.println("Entitatea nu este valida! Id-ul depaseste MAX_INT \n");
             return null;
         }
     }

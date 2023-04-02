@@ -30,18 +30,54 @@ public class TestService {
     }
     @Test
     public void testAddValidStudent() {
-
-        assertEquals(1, service.saveStudent(String.valueOf(13),"Gloria",935));
+        assertEquals(0, service.saveStudent(String.valueOf(13),"Gloria",935));
     }
 
     @Test
-    public void testAddInvalidStudent() {
-        assertEquals(0, service.saveStudent(String.valueOf(13),"G",935));
+    public void testAddStudentWithNegativeID() {
+        assertEquals(1, service.saveStudent(String.valueOf(-1),"Gloria",935));
+    }
+
+    @Test
+    public void testAddStudentWithExistingID() {
+        assertEquals(0, service.saveStudent(String.valueOf(20),"Gloria",935));
+        assertEquals(1, service.saveStudent(String.valueOf(20),"Gigi",935));
+    }
+
+    @Test
+    public void testAddStudentWithEmptyID() {
+        assertEquals(1, service.saveStudent("","Gloria",935));
+    }
+
+    @Test
+    public void testAddStudentWithNullID() {
+        assertEquals(1, service.saveStudent(null,"Gloria",935));
+    }
+
+    @Test
+    public void testAddStudentWithEmptyName() {
+        assertEquals(1, service.saveStudent(String.valueOf(13),"",935));
+    }
+
+    @Test
+    public void testAddStudentWithInvalidName() {
+        assertEquals(1, service.saveStudent(String.valueOf(13),null,935));
+    }
+
+    @Test
+    public void testAddStudentWithGroupToSmall() {
+        assertEquals(1, service.saveStudent(String.valueOf(13),"Gloria",110));
+    }
+
+    @Test
+    public void testAddStudentWithGroupToBig() {
+        assertEquals(1, service.saveStudent(String.valueOf(13),"Gloria",938));
     }
 
     @After
     public void cleanUp() {
         service.deleteStudent("13");
+        service.deleteStudent("20");
     }
 
 }
