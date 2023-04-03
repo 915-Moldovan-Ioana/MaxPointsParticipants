@@ -74,6 +74,16 @@ public class TestService {
         assertEquals(1, service.saveStudent(String.valueOf(13),"Gloria",938));
     }
 
+    @Test
+    public void testAddValidAssignment() {
+        assertEquals(0, service.saveTema(String.valueOf(31),"Tema 1", 8, 7));
+    }
+
+    @Test
+    public void testAddInvalidAssignment() {
+        assertEquals(1, service.saveTema(String.valueOf(""),"Tema 2", 9, 8));
+    }
+
     @After
     public void cleanUp() {
         service.deleteStudent("13");
