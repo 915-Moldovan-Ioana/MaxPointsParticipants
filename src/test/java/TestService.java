@@ -88,6 +88,7 @@ public class TestService {
     public void cleanUp() {
         service.deleteStudent("13");
         service.deleteStudent("20");
+        service.deleteTema("31");
     }
 
 }
