@@ -84,11 +84,23 @@ public class TestService {
         assertEquals(1, service.saveTema(String.valueOf(""),"Tema 2", 9, 8));
     }
 
+    @Test
+    public void testAddAssignment() {
+        assertEquals(0, service.saveTema(String.valueOf(33),"Tema 3", 10, 8));
+    }
+
+    @Test
+    public void testAddInvalidAssignmentNullName() {
+        assertEquals(1, service.saveTema(String.valueOf(40),null, 9, 8));
+    }
+
     @After
     public void cleanUp() {
         service.deleteStudent("13");
         service.deleteStudent("20");
         service.deleteTema("31");
+        service.deleteTema("13");
+        service.deleteTema("33");
     }
 
 }
