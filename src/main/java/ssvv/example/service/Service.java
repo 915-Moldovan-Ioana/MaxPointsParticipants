@@ -83,6 +83,14 @@ public class Service {
         }
         return 1;
     }
+    public int deleteNota(String idS, String idT) {
+        Nota result = notaXmlRepo.delete(new Pair<>(idS,idT));
+
+        if (result == null) {
+            return 0;
+        }
+        return 1;
+    }
 
     public int updateStudent(String id, String numeNou, int grupaNoua) {
         Student studentNou = new Student(id, numeNou, grupaNoua);
